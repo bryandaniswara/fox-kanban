@@ -12,13 +12,14 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Task.belongsToMany(models.User, { through: models.UserTask });
-      Task.hasMany(models.UserTask)
+      Task.hasMany(models.UserTask);
     }
   };
   Task.init({
     name: DataTypes.STRING,
     status: DataTypes.STRING,
     description: DataTypes.STRING,
+    deadline: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Task',

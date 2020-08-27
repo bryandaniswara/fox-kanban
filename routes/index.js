@@ -1,5 +1,6 @@
 const routes = require('express').Router();
+const TasksRoutes = require('./TasksRoutes');
 
-// HomeRoutes
+routes.use('/', TasksRoutes);
 
 module.exports = routes;
