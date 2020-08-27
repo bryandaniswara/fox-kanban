@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "admin",
-    "password": "admin",
-    "database": "fox-kanban",
+    "username": "postgres",
+    "password": "wadidaw",
+    "database": "kanban",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
