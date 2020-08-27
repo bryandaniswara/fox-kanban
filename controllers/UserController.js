@@ -1,6 +1,7 @@
 const {User} = require('../models')
 const bcrypt = require('bcryptjs')
-
+const transporter = require('../mail/server')
+const verificationCode = require('crypto-random-string')
 
 class Controller{
     static registerForm(req,res){
@@ -10,17 +11,41 @@ class Controller{
         let dataUser = {
             username:req.body.username,
             email:req.body.email,
+            password:req.body.password,
+            code:verificationCode({length:4})
+        }
+        let mail = {
+            from:'fox.kanban@gmail.com',
+            to:`${req.body.email}`,
+            subject:"Thank you for joining Fox-Kanban",
+            text:`this is your verification code ${dataUser.code}`
+        }
+        transporter.sendMail(mail,function(err,data){
+            if (err)console.log(err)
+            else console.log(`sent`)
+        })
+        res.render('user/verification',{dataUser})
+    }
+    static verification(req,res){
+        let data = {
+            username:req.body.username,
+            email:req.body.email,
             password:req.body.password
         }
-        User.create(dataUser)
-        .then(data =>{
-            console.log(`success`)
-            res.redirect('/login')
+        let code = req.body.code
+        let verification = req.body.verification
+
+        if (verification === code){
+            User.create(data)
+        .then(data=>{
+            res.redirect('')
         })
         .catch(err=>{
-            console.log(err)
             res.send(err)
         })
+        }else{
+            res.send(err)
+        }
     }
     static loginForm(req,res){
         let errors = req.app.locals.errors
