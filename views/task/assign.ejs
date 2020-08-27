@@ -12,28 +12,7 @@
 </head>
 
 <body>
-    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="/">
-                <img src="/logo.svg" width="112" height="28" />
-            </a>
-
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-                data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
-
-        <div id="navbar" class="navbar-menu">
-            <div class="navbar-start">
-                <a class="navbar-item">
-                    Home
-                </a>
-            </div>
-        </div>
-    </nav>
+    <%- include('../partials/navbar.ejs', {username: ''}) %>
     <section class="hero">
         <div class="hero-body">
             <div class="container">
@@ -43,21 +22,23 @@
     </section>
     <section class="section">
         <div class="container form-container">
-            <div class="field">
-                <label class="label">Username</label>
-                <div class="control has-icons-left has-icons-right">
-                    <input class="input" type="text" placeholder="Username" />
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-user"></i>
-                    </span>
+            <form action="/task/assign/<%- id %>" method="post">
+                <div class="field">
+                    <label class="label">Username</label>
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input" name="username" type="text" placeholder="Username" />
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="field is-grouped">
-                <div class="control">
-                    <button class="button is-link">Assign</button>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button type="submit" class="button is-link">Assign</button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </section>
 </body>

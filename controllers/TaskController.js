@@ -2,51 +2,45 @@ const { User, Task, UserTask } = require('../models');
 
 class TaskController {
     static list(req, res) {
-        User.findByPk(req.session.user, {
+        User.findByPk(1, {
             include: {
                 model: Task,
                 include: User
             }
         })
             .then((result) => {
-                res.send(result);
+                res.render('index.ejs', {
+                    result,
+                    todo: result.Tasks.filter(el => el.status === 'todo'),
+                    doing: result.Tasks.filter(el => el.status === 'doing'),
+                    done: result.Tasks.filter(el => el.status === 'done')
+                });
             }).catch((err) => {
                 res.send(err);
             });
     }
 
     static add(req, res) {
-        // render form
+        res.render('task/addTask');
     }
 
     static create(req, res) {
-        Task.create({ ...req.body })
+        Task.create({ ...req.body, status: 'todo' })
             .then((task) => {
                 return UserTask.create({
-                    UserId: req.session.user,
+                    UserId: 1,
                     TaskId: task.id
                 })
             })
             .then((result) => {
-                res.send(result);
-            }).catch((err) => {
-                res.send(err);
-            });
-    }
-
-    static detail(req, res) {
-        Task.findByPk(req.params.id, {
-            include: [User]
-        })
-            .then((result) => {
-                res.send(result);
+                res.redirect('/');
             }).catch((err) => {
                 res.send(err);
             });
     }
 
     static assign(req, res) {
-        // render form
+        res.render('task/assign', { id: req.params.id });
     }
 
     static assignPost(req, res) {
@@ -58,7 +52,7 @@ class TaskController {
                 })
             })
             .then((result) => {
-                res.send(result);
+                res.redirect('/');
             }).catch((err) => {
                 res.send(err);
             });
@@ -67,7 +61,7 @@ class TaskController {
     static edit(req, res) {
         Task.findByPk(req.params.id)
             .then((result) => {
-                res.send(result);
+                res.render('task/editTask', { result });
             }).catch((err) => {
                 res.send(err);
             });
@@ -80,7 +74,7 @@ class TaskController {
             }
         })
             .then((result) => {
-                res.send(result);
+                res.redirect('/');
             }).catch((err) => {
                 res.send(err);
             });
@@ -89,7 +83,7 @@ class TaskController {
     static delete(req, res) {
         Task.destroy({ where: { id: req.params.id } })
             .then((result) => {
-                res.send(result);
+                res.redirect('/');
             }).catch((err) => {
                 res.send(err);
             });
@@ -102,7 +96,7 @@ class TaskController {
             }
         })
             .then((result) => {
-                res.send(result);
+                res.redirect('/');
             }).catch((err) => {
                 res.send(err);
             });
