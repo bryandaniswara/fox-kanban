@@ -59,7 +59,7 @@ class Controller {
                 if (data) {
                     let flag = bcrypt.compareSync(req.body.password, data.password)
                     if (flag) {
-                        req.session.user = data.username
+                        req.session.id = data.username
                         res.redirect('/')
                     } else {
                         req.app.locals.errors = `Username / Password salah`
@@ -75,7 +75,7 @@ class Controller {
             })
     }
     static setting(req, res) {
-        User.findOne({ where: { username: req.session.user } })
+        User.findOne({ where: { username: req.session.id } })
             .then(data => {
                 res.render('user/edit', { data })
             })
@@ -84,7 +84,7 @@ class Controller {
             })
     }
     static settingPost(req, res) {
-        let options = { where: { username: req.session.user } }
+        let options = { where: { username: req.session.id } }
         let updated = {
             username: req.body.username,
             password: req.body.password
