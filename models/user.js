@@ -12,13 +12,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.belongsToMany(models.Task,{through:models.UserTask})
+      User.hasMany(models.Task)
     }
   };
   User.init({
     username: DataTypes.STRING,
     password: DataTypes.STRING,
     email: DataTypes.STRING,
-    verification: DataTypes.BOOLEAN
+    verification: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'User',
