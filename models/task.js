@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Task.belongsToMany(models.User, { through: models.UserTask });
-      Task.hasMany(models.User);
+      Task.hasMany(models.UserTask)
     }
   };
   Task.init({
