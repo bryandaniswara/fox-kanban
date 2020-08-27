@@ -38,7 +38,7 @@ class Controller {
         if (verification === code) {
             User.create(data)
                 .then(data => {
-                    res.redirect('')
+                    res.redirect('/login')
                 })
                 .catch(err => {
                     res.send(err)
