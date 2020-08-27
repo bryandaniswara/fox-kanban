@@ -33,6 +33,9 @@
             </div>
         </div>
     </section>
+    <% if (errors) { %>
+        <p><%= errors %></p>
+    <% } %>
     <section class="section">
         <form action="/login" method="post">
             <div class="container form-container">

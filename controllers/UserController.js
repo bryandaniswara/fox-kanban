@@ -34,10 +34,13 @@ class Controller {
         }
         let code = req.body.code
         let verification = req.body.verification
-
+        // console.log(code)
+        // console.log(verificationCode)
         if (verification === code) {
             User.create(data)
                 .then(data => {
+                    // console.log(data)
+                    console.log(`register success`)
                     res.redirect('/login')
                 })
                 .catch(err => {
@@ -57,8 +60,10 @@ class Controller {
         User.findOne(options)
             .then(data => {
                 if (data) {
+                    console.log(data)
                     let flag = bcrypt.compareSync(req.body.password, data.password)
                     if (flag) {
+                        console.log('aa')
                         req.session.id = data.id
                         res.redirect('/')
                     } else {

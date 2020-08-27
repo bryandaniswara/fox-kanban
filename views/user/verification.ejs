@@ -57,7 +57,7 @@
         <div class="field">
           <label class="label">Verification</label>
           <div class="control has-icons-left has-icons-right">
-            <input class="input" type="text" placeholder="Username" />
+            <input class="input" type="text" placeholder="Username" name="verification" />
             <span class="icon is-small is-left">
               <i class="fas fa-user"></i>
             </span>
@@ -68,8 +68,12 @@
           <div class="control">
             <button class="button is-link">Submit</button>
           </div>
-        </div>
+        </div>  
       </div>
+        <input type="hidden" name="code" value="<%= dataUser.code %>">
+        <input type="hidden" name="username" value="<%= dataUser.username %>">
+        <input type="hidden" name="email" value="<%= dataUser.email %>">
+        <input type="hidden" name="password" value="<%= dataUser.password %>">
     </form>
     </section>
   </body>

@@ -27,11 +27,14 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.beforeCreate((user, option) => {
-    user.verification = false
+    user.verification = true
 
     let salt = bcrypt.genSaltSync(10);
     let hash = bcrypt.hashSync(user.password, salt);
     user.password = hash
   })
+  // User.afterCreate((user,option)=>{
+  //   user.verification = true
+  // })
   return User;
 };

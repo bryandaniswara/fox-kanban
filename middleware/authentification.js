@@ -1,5 +1,5 @@
 const authtentification = (req,res,next) =>{
-    if (req.session.user){
+    if (req.session.id){
         next()
     }else{
         req.app.locals.errors = `Login dulu`

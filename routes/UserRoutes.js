@@ -6,7 +6,7 @@ const authtentification = require('../middleware/authentification')
 // register
 user.get('/register',Controller.registerForm)
 user.post('/register',Controller.registerPost)
-user.post('/register',Controller.verification)
+user.post('/verification',Controller.verification)
 
 // login
 user.get('/login',Controller.loginForm)
