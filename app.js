@@ -8,9 +8,9 @@ const user = require('./routes/UserRoutes')
 
 app.use(
     session({
-        secret:"kanban",
-        resave:false,
-        saveUninitialized:true,
+        secret: "kanban",
+        resave: false,
+        saveUninitialized: true,
     })
 )
 
@@ -18,7 +18,7 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/', routes);
-app.get('/',(req,res)=>{
+app.get('/', (req, res) => {
     res.render('home')
 })
 app.use(user)
