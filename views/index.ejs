@@ -12,51 +12,14 @@
 </head>
 
 <body>
-    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="/">
-                <img src="/logo.svg" width="112" height="28" />
-            </a>
-
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-                data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
-
-        <div id="navbar" class="navbar-menu">
-            <div class="navbar-start">
-                <a class="navbar-item">
-                    Add task
-                </a>
-            </div>
-
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-light">
-                            <span class="icon">
-                                <i class="fas fa-user"></i>
-                            </span>
-                            <span>username</span>
-                        </a>
-                        <a class="button is-danger">
-                            <span>Logout</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <%- include('./partials/navbar.ejs', {username: result.username}) %>
 
     <section class="section">
         <div class="container">
             <div class="columns">
                 <div class="column">
                     <div class="container">
-                        <a class="button is-info">Add task</a>
+                        <a href="/task/add" class="button is-info">Add task</a>
                     </div>
                 </div>
             </div>
@@ -64,111 +27,101 @@
                 <div class="column">
                     <div class="container">
                         <h1 class="title has-text-centered">To Do</h1>
+                        <% todo.forEach(el => { %>
                         <div class="card">
                             <header class="card-header">
                                 <p class="card-header-title">
-                                    Task A
+                                    <%- el.name %>
                                 </p>
                             </header>
                             <div class="card-content">
                                 <div class="content">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Phasellus nec iaculis mauris.
+                                    <%- el.desc %>
                                     <br />
-                                    <p>Deadline: 11:09 PM - 1 Jan 2016</p>
-                                    <p>Assigned: ...</p>
+                                    <p><%- el.deadline %></p>
+                                    <% if (el.Users !== undefined) { %>
+                                    <p>Assigned: <%- el.Users.map(assigned => assigned.username) %></p>
+                                    <% } %>
                                 </div>
                             </div>
                             <footer class="card-footer">
-                                <a href="#" class="card-footer-item">Assign</a>
-                                <a href="#" class="card-footer-item">Detail</a>
-                                <a href="#" class="card-footer-item">Edit</a>
-                                <a href="#" class="card-footer-item">Done</a>
-                                <a href="#" class="card-footer-item --delete">Delete</a>
+                                <a href="/task/assign/<%- el.id %>" class="card-footer-item">Assign</a>
+                                <a href="/task/detail/<%- el.id %>" class="card-footer-item">Detail</a>
+                                <a href="/task/edit/<%- el.id %>" class="card-footer-item">Edit</a>
+                                <a href="/task/move/doing/<%- el.id %>" class="card-footer-item">Doing</a>
+                                <a href="/task/move/done/<%- el.id %>" class="card-footer-item">Done</a>
+                                <a href="/task/delete/<%- el.id %>" class="card-footer-item --delete">Delete</a>
                             </footer>
                         </div>
+                        <% }) %>
                     </div>
                 </div>
                 <div class="column">
                     <div class="container">
                         <h1 class="title has-text-centered">Doing</h1>
+                        <% doing.forEach(el => { %>
                         <div class="card">
                             <header class="card-header">
                                 <p class="card-header-title">
-                                    Task A
+                                    <%- el.name %>
                                 </p>
                             </header>
                             <div class="card-content">
                                 <div class="content">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Phasellus nec iaculis mauris.
+                                    <%- el.desc %>
                                     <br />
-                                    <p>Deadline: 11:09 PM - 1 Jan 2016</p>
-                                    <p>Assigned: ...</p>
+                                    <p><%- el.deadline %></p>
+                                    <% if (el.Users) { %>
+                                    <p>Assigned: <%- el.Users.map(assigned => assigned.username) %></p>
+                                    <% } %>
                                 </div>
                             </div>
                             <footer class="card-footer">
-                                <a href="#" class="card-footer-item">Assign</a>
-                                <a href="#" class="card-footer-item">Detail</a>
-                                <a href="#" class="card-footer-item">Edit</a>
-                                <a href="#" class="card-footer-item">Done</a>
-                                <a href="#" class="card-footer-item --delete">Delete</a>
+                                <a href="/task/assign/<%- el.id %>" class="card-footer-item">Assign</a>
+                                <a href="/task/detail/<%- el.id %>" class="card-footer-item">Detail</a>
+                                <a href="/task/edit/<%- el.id %>" class="card-footer-item">Edit</a>
+                                <a href="/task/move/todo/<%- el.id %>" class="card-footer-item">To Do</a>
+                                <a href="/task/move/done/<%- el.id %>" class="card-footer-item">Done</a>
+                                <a href="/task/delete/<%- el.id %>" class="card-footer-item --delete">Delete</a>
                             </footer>
                         </div>
-                        <div class="card">
-                            <header class="card-header">
-                                <p class="card-header-title">
-                                    Task A
-                                </p>
-                            </header>
-                            <div class="card-content">
-                                <div class="content">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Phasellus nec iaculis mauris.
-                                    <br />
-                                    <p>Deadline: 11:09 PM - 1 Jan 2016</p>
-                                    <p>Assigned: ...</p>
-                                </div>
-                            </div>
-                            <footer class="card-footer">
-                                <a href="#" class="card-footer-item">Assign</a>
-                                <a href="#" class="card-footer-item">Detail</a>
-                                <a href="#" class="card-footer-item">Edit</a>
-                                <a href="#" class="card-footer-item">Done</a>
-                                <a href="#" class="card-footer-item --delete">Delete</a>
-                            </footer>
-                        </div>
+                        <% }) %>
                     </div>
                 </div>
                 <div class="column">
                     <div class="container">
                         <h1 class="title has-text-centered">Done</h1>
+                        <% done.forEach(el => { %>
                         <div class="card">
                             <header class="card-header">
                                 <p class="card-header-title">
-                                    Task A
+                                    <%- el.name %>
                                 </p>
                             </header>
                             <div class="card-content">
                                 <div class="content">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Phasellus nec iaculis mauris.
+                                    <%- el.desc %>
                                     <br />
-                                    <p>Deadline: 11:09 PM - 1 Jan 2016</p>
-                                    <p>Assigned: ...</p>
+                                    <p><%- el.deadline %></p>
+                                    <% if (el.Users !== undefined) { %>
+                                    <p>Assigned: <%- el.Users.map(assigned => assigned.username) %></p>
+                                    <% } %>
                                 </div>
                             </div>
                             <footer class="card-footer">
-                                <a href="#" class="card-footer-item">Assign</a>
-                                <a href="#" class="card-footer-item">Detail</a>
-                                <a href="#" class="card-footer-item">Edit</a>
-                                <a href="#" class="card-footer-item">Done</a>
-                                <a href="#" class="card-footer-item --delete">Delete</a>
+                                <a href="/task/assign/<%- el.id %>" class="card-footer-item">Assign</a>
+                                <a href="/task/detail/<%- el.id %>" class="card-footer-item">Detail</a>
+                                <a href="/task/edit/<%- el.id %>" class="card-footer-item">Edit</a>
+                                <a href="/task/move/todo/<%- el.id %>" class="card-footer-item">To Do</a>
+                                <a href="/task/move/doing/<%- el.id %>" class="card-footer-item">Doing</a>
+                                <a href="/task/delete/<%- el.id %>" class="card-footer-item --delete">Delete</a>
                             </footer>
                         </div>
+                        <% }) %>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 </body>
