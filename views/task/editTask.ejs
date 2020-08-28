@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <%- include('../partials/navbar.ejs', {username: ''}) %>
+    <%- include('../partials/navbar.ejs', {username: '',id:''}) %>
 
     <section class="hero">
         <div class="hero-body">
@@ -41,7 +41,7 @@
                 <div class="field">
                     <label class="label">Deadline</label>
                     <div class="control">
-                        <input value="<%- result.deadline.toISOString().split('T')[0] %>" name="deadline" class="input"
+                        <input value="<%- result.getDeadlineDate() %>" name="deadline" class="input"
                             name="date" type="date" />
                     </div>
                 </div>

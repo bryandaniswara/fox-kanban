@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       Task.belongsToMany(models.User, { through: models.UserTask });
       Task.hasMany(models.UserTask);
     }
+    getDeadlineDate(){
+      return this.deadline.toISOString().split('T')[0]
+    }
   };
   Task.init({
     name: DataTypes.STRING,

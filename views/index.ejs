@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <%- include('./partials/navbar.ejs', {username: result.username}) %>
+    <%- include('./partials/navbar.ejs', {username: result.username,id:result.id}) %>
 
     <section class="section">
         <div class="container">
@@ -46,7 +46,6 @@
                             </div>
                             <footer class="card-footer">
                                 <a href="/task/assign/<%- el.id %>" class="card-footer-item">Assign</a>
-                                <a href="/task/detail/<%- el.id %>" class="card-footer-item">Detail</a>
                                 <a href="/task/edit/<%- el.id %>" class="card-footer-item">Edit</a>
                                 <a href="/task/move/doing/<%- el.id %>" class="card-footer-item">Doing</a>
                                 <a href="/task/move/done/<%- el.id %>" class="card-footer-item">Done</a>
@@ -78,7 +77,6 @@
                             </div>
                             <footer class="card-footer">
                                 <a href="/task/assign/<%- el.id %>" class="card-footer-item">Assign</a>
-                                <a href="/task/detail/<%- el.id %>" class="card-footer-item">Detail</a>
                                 <a href="/task/edit/<%- el.id %>" class="card-footer-item">Edit</a>
                                 <a href="/task/move/todo/<%- el.id %>" class="card-footer-item">To Do</a>
                                 <a href="/task/move/done/<%- el.id %>" class="card-footer-item">Done</a>
@@ -110,7 +108,6 @@
                             </div>
                             <footer class="card-footer">
                                 <a href="/task/assign/<%- el.id %>" class="card-footer-item">Assign</a>
-                                <a href="/task/detail/<%- el.id %>" class="card-footer-item">Detail</a>
                                 <a href="/task/edit/<%- el.id %>" class="card-footer-item">Edit</a>
                                 <a href="/task/move/todo/<%- el.id %>" class="card-footer-item">To Do</a>
                                 <a href="/task/move/doing/<%- el.id %>" class="card-footer-item">Doing</a>

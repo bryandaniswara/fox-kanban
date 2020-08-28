@@ -2,7 +2,7 @@ const { User, Task, UserTask } = require('../models');
 
 class TaskController {
     static list(req, res) {
-        User.findByPk(1, {
+        User.findByPk(req.session.userId, {
             include: {
                 model: Task,
                 include: User
@@ -28,12 +28,12 @@ class TaskController {
         Task.create({ ...req.body, status: 'todo' })
             .then((task) => {
                 return UserTask.create({
-                    UserId: 1,
+                    UserId: req.session.userId,
                     TaskId: task.id
                 })
             })
             .then((result) => {
-                res.redirect('/');
+                res.redirect('/task');
             }).catch((err) => {
                 res.send(err);
             });
@@ -52,7 +52,7 @@ class TaskController {
                 })
             })
             .then((result) => {
-                res.redirect('/');
+                res.redirect('/task');
             }).catch((err) => {
                 res.send(err);
             });
@@ -74,7 +74,7 @@ class TaskController {
             }
         })
             .then((result) => {
-                res.redirect('/');
+                res.redirect('/task');
             }).catch((err) => {
                 res.send(err);
             });
@@ -83,7 +83,7 @@ class TaskController {
     static delete(req, res) {
         Task.destroy({ where: { id: req.params.id } })
             .then((result) => {
-                res.redirect('/');
+                res.redirect('/task');
             }).catch((err) => {
                 res.send(err);
             });
@@ -96,7 +96,7 @@ class TaskController {
             }
         })
             .then((result) => {
-                res.redirect('/');
+                res.redirect('/task');
             }).catch((err) => {
                 res.send(err);
             });

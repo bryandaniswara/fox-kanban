@@ -32,6 +32,16 @@ module.exports = (sequelize, DataTypes) => {
     let salt = bcrypt.genSaltSync(10);
     let hash = bcrypt.hashSync(user.password, salt);
     user.password = hash
+    console.log(hash)
+  })
+  
+  User.beforeUpdate((user, option) => {
+    user.verification = false
+
+    let salt = bcrypt.genSaltSync(10);
+    let hash = bcrypt.hashSync(user.password, salt);
+    user.password = hash
+    console.log(hash)
   })
   return User;
 };

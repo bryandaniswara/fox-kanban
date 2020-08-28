@@ -1,11 +1,13 @@
 const { User } = require('../models')
 const bcrypt = require('bcryptjs')
-const transporter = require('../mail/server')
+const transporter = require('../helper/server')
 const verificationCode = require('crypto-random-string')
 
 class Controller {
     static registerForm(req, res) {
-        res.render('user/registerForm')
+        let errors = req.app.locals.errors
+        delete req.app.locals.errors
+        res.render('user/registerForm',{errors})
     }
     static registerPost(req, res) {
         let dataUser = {
@@ -24,6 +26,7 @@ class Controller {
             if (err) console.log(err)
             else console.log(`sent`)
         })
+        
         res.render('user/verification', { dataUser })
     }
     static verification(req, res) {
@@ -33,15 +36,19 @@ class Controller {
             password: req.body.password
         }
         let code = req.body.code
-        let verification = req.body.verification
+        let verification = req.body.verCode
+        // console.log(code)
+        // console.log(verificationCode)
 
         if (verification === code) {
+            // console.log('masuk')
             User.create(data)
                 .then(data => {
                     res.redirect('/login')
                 })
                 .catch(err => {
-                    res.send(err)
+                    req.app.locals.errors = `username sudah ada`
+                    res.redirect('/register')
                 })
         } else {
             res.send(err)
@@ -57,25 +64,34 @@ class Controller {
         User.findOne(options)
             .then(data => {
                 if (data) {
+                    console.log(data)
+                    console.log(data.password)
+                    console.log(req.body.password)
                     let flag = bcrypt.compareSync(req.body.password, data.password)
+                    console.log(flag)
                     if (flag) {
-                        req.session.id = data.id
-                        res.redirect('/')
+                        console.log('aa')
+                        console.log(data.id,'data.id')
+                        req.session.userId = data.id
+                        res.redirect('/task')
                     } else {
+                        // console.log('b')
                         req.app.locals.errors = `Username / Password salah`
                         res.redirect('/login')
                     }
                 } else {
+                    // console.log('a')
                     req.app.locals.errors = `Username / Password salah`
                     res.redirect('/login')
                 }
+             
             })
             .catch(err => {
                 res.send(err)
             })
     }
     static setting(req, res) {
-        User.findOne({ where: { id: req.session.id } })
+        User.findByPk(req.params.id)
             .then(data => {
                 res.render('user/edit', { data })
             })
@@ -84,14 +100,14 @@ class Controller {
             })
     }
     static settingPost(req, res) {
-        let options = { where: { id: req.session.id } }
+        let options = { where: { id: req.params.id },individualHooks:true }
         let updated = {
             username: req.body.username,
             password: req.body.password
         }
         User.update(updated, options)
             .then(data => {
-                res.redirect('/')
+                res.redirect('/task')
             })
             .catch(err => {
                 res.send(err)
@@ -102,7 +118,7 @@ class Controller {
             if (err) {
                 res.send(err)
             } else {
-                res.redirect('/')
+                res.redirect('/login')
             }
         })
     }
