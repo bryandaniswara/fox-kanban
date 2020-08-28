@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" class="has-navbar-fixed-top">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Fox Kanban</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <%- include('./partials/navbar.ejs', {username: result.username,id:result.id}) %>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+                    <div class="container">
+                        <a href="/task/add" class="button is-info">Add task</a>
+                    </div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <div class="container">
+                        <h1 class="title has-text-centered">To Do</h1>
+                        <% todo.forEach(el => { %>
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <%- el.name %>
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="content">
+                                    <%- el.desc %>
+                                    <br />
+                                    <p><%- el.deadline %></p>
+                                    <% if (el.Users !== undefined) { %>
+                                    <p>Assigned: <%- el.Users.map(assigned => assigned.username) %></p>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <footer class="card-footer">
+                                <a href="/task/assign/<%- el.id %>" class="card-footer-item">Assign</a>
+                                <a href="/task/edit/<%- el.id %>" class="card-footer-item">Edit</a>
+                                <a href="/task/move/doing/<%- el.id %>" class="card-footer-item">Doing</a>
+                                <a href="/task/move/done/<%- el.id %>" class="card-footer-item">Done</a>
+                                <a href="/task/delete/<%- el.id %>" class="card-footer-item --delete">Delete</a>
+                            </footer>
+                        </div>
+                        <% }) %>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="container">
+                        <h1 class="title has-text-centered">Doing</h1>
+                        <% doing.forEach(el => { %>
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <%- el.name %>
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="content">
+                                    <%- el.desc %>
+                                    <br />
+                                    <p><%- el.deadline %></p>
+                                    <% if (el.Users) { %>
+                                    <p>Assigned: <%- el.Users.map(assigned => assigned.username) %></p>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <footer class="card-footer">
+                                <a href="/task/assign/<%- el.id %>" class="card-footer-item">Assign</a>
+                                <a href="/task/edit/<%- el.id %>" class="card-footer-item">Edit</a>
+                                <a href="/task/move/todo/<%- el.id %>" class="card-footer-item">To Do</a>
+                                <a href="/task/move/done/<%- el.id %>" class="card-footer-item">Done</a>
+                                <a href="/task/delete/<%- el.id %>" class="card-footer-item --delete">Delete</a>
+                            </footer>
+                        </div>
+                        <% }) %>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="container">
+                        <h1 class="title has-text-centered">Done</h1>
+                        <% done.forEach(el => { %>
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <%- el.name %>
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="content">
+                                    <%- el.desc %>
+                                    <br />
+                                    <p><%- el.deadline %></p>
+                                    <% if (el.Users !== undefined) { %>
+                                    <p>Assigned: <%- el.Users.map(assigned => assigned.username) %></p>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <footer class="card-footer">
+                                <a href="/task/assign/<%- el.id %>" class="card-footer-item">Assign</a>
+                                <a href="/task/edit/<%- el.id %>" class="card-footer-item">Edit</a>
+                                <a href="/task/move/todo/<%- el.id %>" class="card-footer-item">To Do</a>
+                                <a href="/task/move/doing/<%- el.id %>" class="card-footer-item">Doing</a>
+                                <a href="/task/delete/<%- el.id %>" class="card-footer-item --delete">Delete</a>
+                            </footer>
+                        </div>
+                        <% }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+</body>
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+</html>

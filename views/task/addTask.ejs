@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" class="has-navbar-fixed-top">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Fox Kanban</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <%- include('../partials/navbar.ejs', {username:'',id:''}) %>
+
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title has-text-centered">Add Task</h1>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container form-container">
+            <form action="/task/create" method="post">
+                <div class="field">
+                    <label class="label">Name</label>
+                    <div class="control">
+                        <input name="name" class="input" type="text" />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Description</label>
+                    <div class="control">
+                        <input name="description" type="text" class="input" />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Deadline</label>
+                    <div class="control">
+                        <input name="deadline" class="input" name="date" type="date" />
+                    </div>
+                </div>
+
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button type="submit" class="button is-link">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+</html>

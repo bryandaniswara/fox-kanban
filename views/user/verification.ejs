@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" class="has-navbar-fixed-top">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Fox Kanban</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav
+      class="navbar is-fixed-top"
+      role="navigation"
+      aria-label="main navigation"
+    >
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <img src="/logo.svg" width="112" height="28" />
+        </a>
+
+        <a
+          role="button"
+          class="navbar-burger burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarBasicExample"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbar" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item">
+            Home
+          </a>
+        </div>
+      </div>
+    </nav>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title has-text-centered">Register</h1>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <form action="/verification" method="POST">
+      <div class="container form-container">
+        <div class="field">
+          <label class="label">Verification</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input" type="text" placeholder="Username" name="verCode" />
+            <span class="icon is-small is-left">
+              <i class="fas fa-user"></i>
+            </span>
+          </div>
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-link">Submit</button>
+          </div>
+        </div>
+      </div>
+      <input type="hidden" name="code" value="<%= dataUser.code %>">
+        <input type="hidden" name="username" value="<%= dataUser.username %>">
+        <input type="hidden" name="email" value="<%= dataUser.email %>">
+        <input type="hidden" name="password" value="<%= dataUser.password %>">
+    </form>
+    </section>
+  </body>
+  <script
+    defer
+    src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
+  ></script>
+</html>

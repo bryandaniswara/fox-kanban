@@ -1,0 +1,12 @@
+.form-container {
+    max-width: 500px;
+  }
+  
+.card {
+    margin-top: 20px;
+  }
+  
+  .card .--delete {
+    color: red;
+  }
+  
